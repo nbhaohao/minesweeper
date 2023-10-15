@@ -26,10 +26,7 @@ public class Board {
     private int mineNumber;
 
     public Board(int height, int width) {
-        this.height = height;
-        this.width = width;
-        this.cells = new Cell[height][width];
-        this.mineNumber = (int) Math.round(height * width * FACTOR);
+        this(height, width, (int) Math.round(height * width * FACTOR));
     }
 
     public Board(int height, int width, int mineNumber) {
@@ -40,6 +37,12 @@ public class Board {
         this.height = height;
         this.width = width;
         this.mineNumber = mineNumber;
+        this.cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell();
+            }
+        }
     }
 
     public Cell[][] getCells() {
@@ -90,5 +93,14 @@ public class Board {
 
     private boolean checkMine(int newX, int newY) {
         return newX >= 0 && newY >= 0 && newX < width && newY < height && cells[newY][newX].isMine();
+    }
+
+    public void printBoard() {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print(cells[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

@@ -63,4 +63,26 @@ public class Cell {
     public void setAdjacentMines(int adjacentMines) {
         this.adjacentMines = adjacentMines;
     }
+
+    @Override
+    public String toString() {
+        // 单元格被用户标记, 显示 F
+        if (isFlagged()) {
+            return "F";
+        }
+        // 没有揭示的时候, 单元格都显示 ?
+        if (!isRevealed()) {
+            return "?";
+        }
+        // 单元格被揭示后, 是地雷, 显示*提示用户踩到地雷
+        if (isRevealed() && isMine()) {
+            return "*";
+        }
+        // 单元格被揭示后, 不是地雷, 显示周围雷数量的数字
+        if (isRevealed() && !isMine() && getAdjacentMines() > 0) {
+            return String.valueOf(getAdjacentMines());
+        }
+        // 单元格自动被揭示, 显示“”
+        return "";
+    }
 }
